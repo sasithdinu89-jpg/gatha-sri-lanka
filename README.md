@@ -18,8 +18,12 @@ A serene, elegant, and fully responsive static website designed for hosting on *
 
 ```text
 sinhala-gatha-web/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # Automated pre-flight validation & GitHub Pages deployment
+├── .gitignore                  # Git ignore rules for OS & temporary files
 ├── index.html                  # Main landing page & gallery
-├── CNAME                       # (Optional) For custom domain setup on GitHub Pages
+├── CNAME.example               # Template for optional custom domain setup
 ├── assets/
 │   ├── css/
 │   │   └── style.css           # Custom styling & serene visual blending
@@ -124,32 +128,49 @@ Open `assets/data/gathas.json` and append a new JSON object to the array:
 
 ## 🌐 Deploying to GitHub Pages
 
-Deploying takes less than 2 minutes.
+### 🏆 Which Deployment Method is Better?
 
-### Step 1: Initialize Git and Push to GitHub
-If you haven't initialized a repository yet:
+| Feature | 🥇 GitHub Actions (Recommended) | 🥈 Deploy from a Branch |
+| :--- | :--- | :--- |
+| **Official Recommendation** | **Yes (Current GitHub Pages standard)** | Legacy method |
+| **Automated Data Validation** | **Yes:** Checks JSON syntax & verifies all images exist before publishing | **No:** Publishes blindly even if images/JSON are broken |
+| **Build & Deploy Logs** | **Yes:** Detailed step-by-step logs in the Actions tab | **No:** Opaque background process |
+| **Safe CNAME Handling** | **Yes:** Automatically removes placeholder comments to avoid DNS errors | **No:** Fails if CNAME contains comments |
+| **Manual Re-deploy** | **Yes:** One-click re-run (`workflow_dispatch`) | **No:** Requires pushing dummy commits |
+| **Future Extensibility** | Easy to add image compression, linting, sitemap generation | None |
 
+> **Verdict:** **GitHub Actions** is the strongly recommended modern way. It ensures that any changes to `gathas.json` or image files are automatically verified before going live, preventing broken links and publishing errors.
+
+---
+
+### 🚀 Recommended Setup: Using GitHub Actions
+
+#### Step 1: Push Code to GitHub
 ```bash
 git init
 git add .
-git commit -m "feat: initial commit with Sinhala Buddhist Gatha collection"
+git commit -m "feat: complete Sinhala Buddhist Gatha collection with automated deployment"
 git branch -M main
 git remote add origin https://github.com/<your-username>/<your-repo-name>.git
 git push -u origin main
 ```
 
-### Step 2: Enable GitHub Pages
-1. Go to your repository on GitHub.
-2. Click **Settings** (top right tab).
-3. In the left sidebar, click **Pages**.
-4. Under **"Build and deployment"** > **Branch**:
-   - Source: **Deploy from a branch**
-   - Branch: Select **`main`**
-   - Folder: Select **`/ (root)`**
-5. Click **Save**.
+#### Step 2: Switch Pages Source to GitHub Actions
+1. Open your repository on GitHub.
+2. Navigate to **Settings** > **Pages** (in the left sidebar).
+3. Under **"Build and deployment"** > **Source**, choose **GitHub Actions**.
+4. That's it! The workflow in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) will trigger automatically on every push to `main`, run pre-flight integrity tests, and publish your website.
 
-Within 1-2 minutes, GitHub will publish your site at:
+Your website will be live at:
 `https://<your-username>.github.io/<your-repo-name>/`
+
+---
+
+### 🥈 Alternative Setup: Deploy from a Branch (Legacy)
+If you prefer not to use Actions:
+1. Go to **Settings** > **Pages**.
+2. Under **"Build and deployment"** > **Source**, select **Deploy from a branch**.
+3. Under **Branch**, select **`main`** and **`/ (root)`**, then click **Save**.
 
 ---
 
@@ -157,21 +178,18 @@ Within 1-2 minutes, GitHub will publish your site at:
 
 If you have a custom domain (e.g., `gathas.lk` or `gatha.mydomain.com`):
 
-1. Open the `CNAME` file in the root directory.
-2. Replace its entire contents with your domain name (without `https://`):
+1. Copy `CNAME.example` to `CNAME`:
+   ```bash
+   cp CNAME.example CNAME
+   ```
+2. Put **only** your naked domain name on a single line (no comments, no `https://`):
    ```text
    gathas.lk
    ```
 3. In your DNS provider (e.g., Cloudflare, Namecheap, GoDaddy):
-   - For a subdomain (e.g., `gatha.mydomain.com`), add a `CNAME` record:
-     - Name: `gatha`
-     - Value: `<your-username>.github.io`
-   - For an apex domain (e.g., `mydomain.com`), add `A` records pointing to GitHub's IPs:
-     - `185.199.108.153`
-     - `185.199.109.153`
-     - `185.199.110.153`
-     - `185.199.111.153`
-4. In GitHub Repository > **Settings** > **Pages**, enter your custom domain and check **"Enforce HTTPS"**.
+   - For a subdomain (`gatha.mydomain.com`): add a `CNAME` record pointing to `<your-username>.github.io`
+   - For an apex domain (`mydomain.com`): add `A` records pointing to GitHub's IPs (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`)
+4. In GitHub Repository > **Settings** > **Pages**, enter your custom domain and enable **"Enforce HTTPS"**.
 
 ---
 

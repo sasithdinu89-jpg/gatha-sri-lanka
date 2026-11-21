@@ -1,3 +1,4 @@
-# (Optional) For custom domain setup on GitHub Pages:
-# Replace this entire file with your custom domain name (e.g., gatha.mydomain.com)
-# If using the default username.github.io/repo URL, you can leave or delete this file.
+# If you use a custom domain (e.g., gatha.example.com or gathas.lk):
+# 1. Rename this file from CNAME.example to CNAME (or create a file named CNAME)
+# 2. Put ONLY your domain name on a single line with NO comments or protocols:
+#    gathas.example.com
