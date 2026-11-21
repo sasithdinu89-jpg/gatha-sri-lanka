@@ -1,0 +1,483 @@
+/* ==========================================================================
+   SINHALA BUDDHIST GATHA COLLECTION
+   Serene, Traditional Temple Aesthetic & Modern Minimalist UI
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Serif+Sinhala:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Serene Day Palette (Warm Parchment & Antique Gold) */
+  --bg-main: #FAF7F2;
+  --bg-surface: #F4EFEB;
+  --bg-card: #FFFFFF;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  
+  --text-main: #201C17;
+  --text-secondary: #594F45;
+  --text-muted: #877B6F;
+  
+  --gold-primary: #C5A059;
+  --gold-dark: #8C6D37;
+  --gold-light: #EFE4CE;
+  --gold-glow: rgba(197, 160, 89, 0.28);
+  
+  --border-light: rgba(140, 109, 55, 0.16);
+  --border-strong: rgba(140, 109, 55, 0.35);
+
+  --font-sinhala-serif: 'Noto Serif Sinhala', serif;
+  --font-sinhala-sans: 'Noto Sans Sinhala', sans-serif;
+  --font-brand: 'Cinzel', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  --shadow-soft: 0 4px 20px -2px rgba(90, 65, 30, 0.05);
+  --shadow-hover: 0 16px 36px -4px rgba(140, 109, 55, 0.18), 0 4px 12px -2px rgba(90, 65, 30, 0.06);
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Twilight / Night Meditation Theme */
+[data-theme="dark"] {
+  --bg-main: #131210;
+  --bg-surface: #1B1815;
+  --bg-card: #23201C;
+  --bg-glass: rgba(35, 32, 28, 0.85);
+
+  --text-main: #F5EFE6;
+  --text-secondary: #C7BEB2;
+  --text-muted: #8E8477;
+
+  --gold-primary: #D4AF37;
+  --gold-dark: #A9832B;
+  --gold-light: rgba(212, 175, 55, 0.15);
+  --gold-glow: rgba(212, 175, 55, 0.32);
+
+  --border-light: rgba(212, 175, 55, 0.2);
+  --border-strong: rgba(212, 175, 55, 0.4);
+
+  --shadow-soft: 0 4px 24px -2px rgba(0, 0, 0, 0.45);
+  --shadow-hover: 0 16px 40px -4px rgba(212, 175, 55, 0.22), 0 6px 16px -2px rgba(0, 0, 0, 0.6);
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+  background-image: radial-gradient(circle at 10% 20%, rgba(197, 160, 89, 0.04) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(140, 109, 55, 0.04) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+/* Typography Helpers */
+.font-sinhala-serif {
+  font-family: var(--font-sinhala-serif);
+}
+
+.font-sinhala-sans {
+  font-family: var(--font-sinhala-sans);
+}
+
+.font-brand {
+  font-family: var(--font-brand);
+}
+
+/* Subtle Temple Parchment Background Elements */
+.temple-motif-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 380px;
+  background: radial-gradient(ellipse at 50% -20%, rgba(197, 160, 89, 0.15) 0%, rgba(250, 247, 242, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="dark"] .temple-motif-bg {
+  background: radial-gradient(ellipse at 50% -20%, rgba(212, 175, 55, 0.12) 0%, rgba(19, 18, 16, 0) 70%);
+}
+
+/* Navigation & Glass Header */
+.header-glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  transition: var(--transition-smooth);
+}
+
+/* Dharmachakra Spin on Subtle Hover */
+.chakra-icon {
+  transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.brand-link:hover .chakra-icon {
+  transform: rotate(180deg);
+}
+
+/* Gold Gradient Text */
+.gold-gradient-text {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Filter Pill Buttons */
+.filter-btn {
+  transition: var(--transition-smooth);
+  border: 1px solid var(--border-light);
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+}
+
+.filter-btn:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-dark);
+  transform: translateY(-1px);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 100%);
+  border-color: var(--gold-dark);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px var(--gold-glow);
+}
+
+[data-theme="dark"] .filter-btn.active {
+  color: #12100E;
+  font-weight: 600;
+}
+
+/* Search Bar with Temple Touch */
+.search-container {
+  position: relative;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-light);
+  border-radius: 9999px;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-soft);
+}
+
+.search-container:focus-within {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+/* Gallery Cards */
+.gatha-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.gatha-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-primary);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Image Container in Card */
+.card-image-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background-color: var(--bg-surface);
+  cursor: pointer;
+}
+
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+}
+
+.gatha-card:hover .card-image-wrap img {
+  transform: scale(1.04);
+}
+
+/* Inner Frame in Image Card */
+.image-inner-frame {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  border-radius: 6px;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+.gatha-card:hover .image-inner-frame {
+  border-color: var(--gold-primary);
+  box-shadow: inset 0 0 15px rgba(197, 160, 89, 0.2);
+}
+
+/* Card Hover Overlay */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(20, 18, 14, 0.75) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px;
+  pointer-events: none;
+}
+
+.gatha-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-overlay-btn {
+  pointer-events: auto;
+  transform: translateY(10px);
+  transition: var(--transition-smooth);
+}
+
+.gatha-card:hover .card-overlay-btn {
+  transform: translateY(0);
+}
+
+/* Category Badge */
+.category-badge-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: var(--gold-light);
+  color: var(--gold-dark);
+  border: 1px solid var(--border-light);
+}
+
+[data-theme="dark"] .category-badge-chip {
+  background-color: rgba(212, 175, 55, 0.12);
+  color: var(--gold-primary);
+  border-color: rgba(212, 175, 55, 0.25);
+}
+
+/* Modal Lightbox Styling */
+.modal-backdrop {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(14, 12, 10, 0.88);
+}
+
+.modal-content-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+/* Modal Image Frame */
+.modal-image-container {
+  position: relative;
+  overflow: auto;
+  display: flex;
+  align-items: safe center;
+  justify-content: safe center;
+  background: #0D0C0B;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.modal-image-container img {
+  max-height: 75vh;
+  max-width: 100%;
+  width: auto;
+  margin: auto;
+  object-fit: contain;
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+  user-select: none;
+}
+
+.modal-image-container:hover img {
+  transform: scale(1.015);
+}
+
+/* Fullscreen Hint Badge */
+.fullscreen-hint-badge {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  animation: pulseHint 3s infinite ease-in-out;
+}
+
+@keyframes pulseHint {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.45);
+  }
+}
+
+/* ==========================================================================
+   Dedicated Fullscreen Chanting & Reading Viewer (Mobile & Tablet First)
+   ========================================================================== */
+#fullscreenViewer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 100;
+  touch-action: pan-y;
+  -webkit-touch-callout: none;
+  padding-top: env(safe-area-inset-top, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+}
+
+.fullscreen-topbar,
+.fullscreen-bottombar {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.fullscreen-scroll-canvas {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  background: radial-gradient(circle at 50% 30%, rgba(26, 23, 19, 0.9) 0%, rgba(10, 9, 8, 1) 100%);
+}
+
+.fullscreen-image {
+  user-select: none;
+  -webkit-user-select: none;
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  transition: transform 0.2s ease;
+}
+
+/* Mobile & Tablet Optimizations */
+@media (max-width: 768px) {
+  .modal-content-panel {
+    max-height: 94dvh;
+    border-radius: 18px;
+  }
+
+  .fullscreen-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 6px;
+  }
+
+  button, a {
+    touch-action: manipulation;
+  }
+}
+
+@media (min-width: 769px) {
+  .fullscreen-image {
+    max-height: calc(100dvh - 130px);
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* For tall chant sheets like Jaya Piritha, Rathana Suthraya, etc., allow full height display */
+  .fullscreen-image[src*="pirith/"],
+  .fullscreen-image[src*="jaya-piritha"],
+  .fullscreen-image[src*="karaneeya-metta"] {
+    max-height: none;
+    width: 90%;
+    max-width: 780px;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-dark);
+}
+
+/* Toast Notification */
+.toast-msg {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 100;
+  padding: 12px 24px;
+  background: var(--text-main);
+  color: var(--bg-main);
+  border: 1px solid var(--gold-primary);
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+.toast-msg.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  header, footer, .filter-bar, .search-container, .modal-backdrop button {
+    display: none !important;
+  }
+  .modal-image-container img {
+    max-height: 95vh !important;
+    width: 100% !important;
+  }
+}
